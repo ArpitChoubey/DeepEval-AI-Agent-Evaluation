@@ -1,100 +1,487 @@
-# DeepEval Agentic Testing Demo
+# 🚀 DeepEval Agentic Testing Framework | LangChain • Claude • GPT-4o • DeepEval • AI Agent Evaluation
 
-A minimal teaching repo that shows how to evaluate a LangChain agent with
-DeepEval's component-level evaluation: **Task Completion** and **Tool
-Correctness** metrics, applied to a cross-vendor setup (Claude as the
-agent, GPT-4o as the judge).
+<p align="center">
 
----
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![DeepEval](https://img.shields.io/badge/DeepEval-Agent%20Evaluation-blueviolet?style=for-the-badge)
+![LangChain](https://img.shields.io/badge/LangChain-Agent-green?style=for-the-badge)
+![Claude](https://img.shields.io/badge/Claude-AI-orange?style=for-the-badge)
+![OpenAI](https://img.shields.io/badge/GPT--4o-Judge-black?style=for-the-badge&logo=openai)
+![LLM Testing](https://img.shields.io/badge/LLM-Testing-red?style=for-the-badge)
+![GenAI](https://img.shields.io/badge/Generative-AI-success?style=for-the-badge)
+![AI Quality](https://img.shields.io/badge/AI-Quality-blue?style=for-the-badge)
+![Agentic AI](https://img.shields.io/badge/Agentic-AI-purple?style=for-the-badge)
+![Observability](https://img.shields.io/badge/LLM-Observability-teal?style=for-the-badge)
+![QA Automation](https://img.shields.io/badge/QA-Automation-success?style=for-the-badge)
+![GitHub](https://img.shields.io/badge/Open%20Source-GitHub-black?style=for-the-badge&logo=github)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-## Files in this repo
-
-| File | Who writes it (in real life) | What it does |
-|---|---|---|
-| `agent_plain.py` | Developer (before evals exist) | A normal LangChain + Claude agent. No DeepEval code anywhere. |
-| `agent_instrumented.py` | Developer (after QA asks) | The **same** agent, with **4 lines added** to make it observable to DeepEval. |
-| `test_agent.py` | QA / Tester (you) | Imports the agent, defines goldens, runs metrics. |
-
----
-
-## The teaching point
-
-The diff between `agent_plain.py` and `agent_instrumented.py` is **4 lines**.
-That's the entire ask QA makes of dev:
-
-1. `from deepeval.integrations.langchain import CallbackHandler`
-2. `deepeval_callback = CallbackHandler()`
-3. `config={"callbacks": [deepeval_callback]}` on `.invoke()`
-4. `@observe(name="support_agent")` on the outer wrapper function
-
-Everything else stays exactly the same.
-
-Show students both files side by side. Once they see the diff is tiny,
-they stop being intimidated by component-level evaluation.
+</p>
 
 ---
 
-## How to run
+# 🌟 Project Overview
 
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
+As AI Agents become increasingly common in enterprise software, traditional software testing is no longer sufficient.
 
-# 2. Set your API keys
-export ANTHROPIC_API_KEY=sk-ant-...
-export OPENAI_API_KEY=sk-...
+This repository demonstrates **how to evaluate an AI Agent using DeepEval's Component-Level Evaluation**, measuring whether an agent:
 
-# 3. (Optional but recommended) log in to Confident AI to see traces in a UI
-deepeval login
+- ✅ Completes the user's task
+- ✅ Uses the correct tools
+- ✅ Produces reliable responses
+- ✅ Can be observed and evaluated like production AI systems
 
-# 4. Sanity check: run the agent on its own
-python agent_instrumented.py
+Unlike traditional unit testing, this project focuses on **LLM Quality Engineering**, an emerging discipline that combines AI, automation testing, observability, and evaluation.
 
-# 5. Run the evaluation
-python test_agent.py
+---
+
+# 🎯 Why This Project Matters
+
+Modern companies are rapidly adopting:
+
+- Agentic AI
+- LangChain
+- OpenAI
+- Claude
+- MCP Servers
+- RAG Applications
+- AI Assistants
+
+Building AI applications is only half the challenge.
+
+**The bigger challenge is knowing whether they actually work correctly.**
+
+This repository demonstrates practical techniques for evaluating AI agents using production-style metrics instead of manual inspection.
+
+---
+
+# 🚀 Key Highlights
+
+✔ DeepEval Component-Level Evaluation
+
+✔ LangChain Agent Testing
+
+✔ Claude as the Agent
+
+✔ GPT-4o as the Judge
+
+✔ Task Completion Metric
+
+✔ Tool Correctness Metric
+
+✔ Cross-Vendor AI Evaluation
+
+✔ AI Agent Observability
+
+✔ Golden Dataset Testing
+
+✔ Trace Collection
+
+✔ Component-Level AI Testing
+
+✔ Real-world QA workflow
+
+✔ Minimal Instrumentation (Only 4 additional lines)
+
+---
+
+# 🧠 Architecture
+
+```
+                    User Prompt
+                          │
+                          ▼
+               LangChain AI Agent
+                          │
+                Claude (LLM Agent)
+                          │
+         -----------------------------
+        │                             │
+        ▼                             ▼
+
+   Tool Execution               Final Response
+
+        │                             │
+         -------- Trace Collection ----
+
+                    ▼
+
+          DeepEval Callback Handler
+
+                    ▼
+
+        Task Completion Evaluation
+
+                    +
+
+        Tool Correctness Evaluation
+
+                    ▼
+
+             GPT-4o Judge Model
+
+                    ▼
+
+        Scores • Reasons • Evaluation
 ```
 
 ---
 
-## What you'll see when you run `test_agent.py`
+# 🔥 Why Recruiters & Hiring Managers Should Care
 
-DeepEval will:
-1. Invoke `support_agent(...)` for each golden input
-2. Capture the full trace (LangChain LLM call + tool call + final message)
-3. Apply **Task Completion** to the whole trace
-4. Apply **Tool Correctness** to the tool-call span
-5. Print scores + reasons per golden
+This project demonstrates experience beyond traditional automation testing.
 
-The third golden is intentionally borderline — watch for the interesting
-case where Task Completion may pass but Tool Correctness fails (or vice
-versa). That's the moment that makes component-level evaluation click.
+It showcases knowledge of:
+
+- AI Testing
+- LLM Evaluation
+- GenAI Quality Engineering
+- AI Observability
+- Agentic Systems
+- LangChain
+- Prompt Evaluation
+- Cross-model validation
+- Modern QA Engineering
+
+These are rapidly growing skillsets for:
+
+- Lead SDET
+- AI Test Engineer
+- AI QA Engineer
+- GenAI Quality Engineer
+- AI Automation Engineer
+- LLM Evaluation Engineer
 
 ---
 
-## Suggested lesson flow
+# 📂 Project Structure
 
-| Minute | Activity |
-|---|---|
-| 0–5 | Show `agent_plain.py`. Ask: "How would you test this?" |
-| 5–10 | Show `agent_instrumented.py` side-by-side. Walk through the 4-line diff. |
-| 10–25 | Walk through `test_agent.py` line by line. |
-| 25–35 | Run it live. Discuss the borderline result. |
-| 35+ | Open discussion: what other metrics? what other goldens? |
+```
+deepeval-agent-project
+│
+├── agent_plain.py
+├── agent_instrumented.py
+├── chatbot.py
+├── rag_agent.py
+├── mcp_server.py
+├── policies.txt
+├── requirements.txt
+├── README.md
+│
+├── evals
+│   ├── test_TaskCompletion.py
+│   ├── test_TracingComponentsTest.py
+│   ├── test_agent_synthesized.py
+│   ├── test_chatbot.py
+│   ├── test_chatbot_customreqd.py
+│   ├── test_customMetricEvals.py
+│   ├── test_multipleEvalsTest.py
+│   └── test_rag_agent.py
+│
+└── CLAUDE.md
+```
 
 ---
 
-## Reality checks before teaching
+# ⚙ Agent Flow
 
-DeepEval's integration surface evolves. Before your first session, run the
-demo end-to-end once and confirm:
+```
+User Query
 
-- `ChatAnthropic(model="claude-sonnet-4-5")` — if this errors, swap to the
-  latest Claude model from the Anthropic console.
-- `from deepeval.integrations.langchain import CallbackHandler` — works as
-  written in recent DeepEval versions; older versions may use a different
-  import path.
-- `Golden(expected_tools=[ToolCall(name="...")])` — accepted in current
-  DeepEval; in older versions you may need to pass via `additional_metadata`
-  and unpack via `update_current_span`.
+      │
 
-Fix any version issue once, then it's solid for the whole course.
+      ▼
+
+LangChain Agent
+
+      │
+
+Claude LLM
+
+      │
+
+Tool Execution
+
+      │
+
+DeepEval Callback
+
+      │
+
+Trace Collection
+
+      │
+
+Task Completion
+
+      │
+
+Tool Correctness
+
+      │
+
+GPT-4o Evaluation
+
+      │
+
+Final Scores
+```
+
+---
+
+# 🔍 Minimal Instrumentation
+
+One of the biggest strengths of DeepEval is that developers only need **4 additional lines** to make an existing LangChain agent observable.
+
+```python
+from deepeval.integrations.langchain import CallbackHandler
+
+deepeval_callback = CallbackHandler()
+
+config={"callbacks":[deepeval_callback]}
+
+@observe(name="support_agent")
+```
+
+Everything else in the agent remains unchanged.
+
+This makes AI evaluation practical for existing production systems.
+
+---
+
+# 🧪 Evaluation Metrics
+
+## ✅ Task Completion
+
+Measures whether the AI successfully completed the user's objective.
+
+Example questions:
+
+- Did the agent solve the task?
+- Did it answer correctly?
+- Was the reasoning complete?
+
+---
+
+## ✅ Tool Correctness
+
+Measures whether the AI selected the appropriate tools.
+
+Example questions:
+
+- Did it call the right tool?
+- Was the correct sequence followed?
+- Were unnecessary tool calls avoided?
+
+---
+
+# 🏆 Features
+
+- AI Agent Testing
+- LangChain Integration
+- DeepEval Evaluation
+- Cross-Vendor LLM Testing
+- GPT-4o Judge
+- Claude Agent
+- Golden Dataset Evaluation
+- Trace Collection
+- Component-Level Evaluation
+- Custom Metrics
+- Multiple Evaluations
+- RAG Testing
+- Chatbot Evaluation
+- AI Observability
+- Production-style AI QA
+
+---
+
+# 📚 Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| Language | Python |
+| Agent Framework | LangChain |
+| Evaluation | DeepEval |
+| AI Model | Claude |
+| Judge Model | GPT-4o |
+| AI Platform | OpenAI |
+| Testing | DeepEval Metrics |
+| AI Quality | Task Completion |
+| Tool Evaluation | Tool Correctness |
+| Observability | CallbackHandler |
+
+---
+
+# 🚀 Installation
+
+Clone repository
+
+```bash
+git clone https://github.com/ArpitChoubey/deepeval-agent-project.git
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# 🔑 Configure API Keys
+
+```bash
+export ANTHROPIC_API_KEY=YOUR_KEY
+
+export OPENAI_API_KEY=YOUR_KEY
+```
+
+---
+
+# 🔥 Login to DeepEval
+
+```bash
+deepeval login
+```
+
+---
+
+# ▶ Run Agent
+
+```bash
+python agent_instrumented.py
+```
+
+---
+
+# 🧪 Execute Evaluations
+
+```bash
+python test_agent.py
+```
+
+or
+
+```bash
+pytest
+```
+
+---
+
+# 📊 What DeepEval Produces
+
+After execution DeepEval automatically provides:
+
+✅ Task Completion Score
+
+✅ Tool Correctness Score
+
+✅ Evaluation Reasons
+
+✅ Trace Collection
+
+✅ Component-level Insights
+
+✅ Golden Dataset Validation
+
+---
+
+# 💡 Learning Outcomes
+
+After completing this project you'll understand:
+
+- AI Agent Testing
+- DeepEval
+- LangChain Evaluation
+- LLM Observability
+- AI Quality Engineering
+- Agent Instrumentation
+- Component-level Metrics
+- Prompt Evaluation
+- RAG Evaluation
+- Tool Validation
+- Production AI QA
+
+---
+
+# 🎯 Ideal For
+
+- AI QA Engineers
+- Lead SDETs
+- QA Automation Engineers
+- AI Automation Engineers
+- LLM Evaluation Engineers
+- GenAI Engineers
+- QA Managers
+- Engineering Managers
+- Recruiters hiring AI Test Engineers
+
+---
+
+# 🌐 Repository
+
+## GitHub
+
+⭐ **Repository**
+
+https://github.com/ArpitChoubey/deepeval-agent-project
+
+---
+
+# 👨‍💻 About Me
+
+## Arpit Choubey
+
+**Senior Software Development Engineer in Test (SDET)**
+
+Specializing in:
+
+- AI Testing
+- Playwright
+- Selenium
+- Python
+- Java
+- LangChain
+- DeepEval
+- MCP
+- REST API Testing
+- CI/CD
+- Docker
+- Jenkins
+- GitHub Actions
+
+LinkedIn
+
+https://www.linkedin.com/in/arpitchoubey/
+
+Medium
+
+https://medium.com/@ArpitChoubey9
+
+GitHub
+
+https://github.com/ArpitChoubey
+
+---
+
+# ⭐ Support
+
+If you found this project useful:
+
+⭐ Star the repository
+
+🍴 Fork it
+
+📢 Share it with the AI Testing community
+
+🤝 Connect with me on LinkedIn
+
+---
+
+# 📈 Keywords
+
+AI Testing • DeepEval • LangChain • Claude • GPT-4o • AI Agents • Agentic AI • LLM Evaluation • GenAI Testing • Python • AI Quality Engineering • Prompt Testing • Tool Correctness • Task Completion • Observability • AI Automation • QA Automation • Lead SDET • Open Source
+
+---
+
+## ⭐ If you're a Recruiter, Hiring Manager, QA Lead, or Engineering Manager evaluating AI Quality Engineering skills, this repository demonstrates practical experience with modern LLM evaluation techniques using production-oriented tooling and workflows.
